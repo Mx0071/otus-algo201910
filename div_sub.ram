@@ -1,0 +1,53 @@
+; <input> 50 30
+; <input> 25 25
+; <input> 5 30
+; <input> 100001 2
+; <input> 0 123456
+; <input> 123456 0
+; my test
+; <input> 0 0
+; <input> 0 1
+
+READ 1
+READ 2
+LOAD 2
+
+JZ DIV_BY_0 ; Check whether divider is 0. Then halt program.
+
+LOAD 2
+SUB=1 ; Check whether divider is 1. Then do not need to sub `n` times.
+JZ DIV_BY_1
+
+LOAD=0
+STORE 3 ; r3 = 0
+JMP REPEAT
+
+REPEAT:   ; while true
+  LOAD 1  ; r1 -= r2
+  SUB 2
+  JGTZ PROCEED  ; if r1 < 0 then r1 += r2 and break
+  JZ PROCEED
+  ADD 2  
+  STORE 1
+  JMP END
+  PROCEED:
+    STORE 1     ; store r1
+    LOAD 3      ; r3 += 1 
+    ADD =1
+    STORE 3
+JMP REPEAT
+
+DIV_BY_0:
+  HALT
+
+DIV_BY_1:
+  LOAD 1    ; if r2 == 1
+  STORE 3   ; r3 = r1
+  LOAD=0    ; r1 = 0
+  STORE 1
+  JMP END
+
+END:
+  WRITE 3
+  WRITE 1
+  HALT
