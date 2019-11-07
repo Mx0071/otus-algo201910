@@ -1,0 +1,45 @@
+; <input> 5 3
+; <input> 1111 111
+; <input> 1 1000000
+; <input> 1000000 1
+; <input> 123 0
+; <input> 0 456
+; my tests
+; <input> 0 0 
+; <input> 11 11
+
+READ 1
+READ 2
+LOAD=0
+STORE 3
+LOAD 1
+SUB 2
+
+JGTZ FIRST_BIGGER
+JMP SECOND_BIGGER
+
+FIRST_BIGGER:
+  REPEAT_1:
+    LOAD 2
+    JZ END
+    SUB =1
+    STORE 2
+    LOAD 3
+    ADD 1
+    STORE 3
+  JMP REPEAT_1
+
+SECOND_BIGGER:
+  REPEAT_2:
+    LOAD 1
+    JZ END
+    SUB =1
+    STORE 1
+    LOAD 3
+    ADD 2
+    STORE 3
+  JMP REPEAT_2
+
+END:
+  WRITE 3
+  HALT
